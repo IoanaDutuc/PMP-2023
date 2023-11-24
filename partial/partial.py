@@ -121,3 +121,17 @@ with model:
     theta = pm.HalfNormal('theta', sd=3)
     # distrib a probab
     t_med_astept_est = pm.Normal('t_med_astept_est', mu=mu, sd=theta, observed=t_med_astept_obs)
+
+
+
+# ex3.3
+#antrenam modelul cu mcmc
+with model:
+    trace = pm.sample(1000, tune=1000, random_seed=78)
+
+# afisam graficul distrib a posteriori pt mu
+az.plot_posterior(trace['mu'], hdi_prob=0.95, round_to=2, point_estimate='mean', kind='hist')
+plt.title('distrib a posteriori pt μ')
+plt.xlabel('μ')
+plt.ylabel('densitatea de probab')
+plt.show()
